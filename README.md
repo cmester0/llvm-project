@@ -1,3 +1,11 @@
+# Piet backend bracnh for LLVM
+```bash
+cmake -G Ninja ../llvm
+  -DLLVM_TARGETS_TO_BUILD="X86;Piet"
+  -DLLVM_ENABLE_PROJECTS="clang"
+  -DCMAKE_BUILD_TYPE=Release
+```
+
 # The LLVM Compiler Infrastructure
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/llvm/llvm-project/badge)](https://securityscorecards.dev/viewer/?uri=github.com/llvm/llvm-project)
