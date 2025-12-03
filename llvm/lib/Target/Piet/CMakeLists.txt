@@ -6,21 +6,6 @@ tablegen(LLVM PietGenRegisterInfo.inc -gen-register-info)
 
 add_public_tablegen_target(PietCommonTableGen)
 
-# add_llvm_component_library(LLVMPiet
-#   PietTargetMachine.cpp
-#   PietDesc
-#   PietInfo
-
-#   LINK_COMPONENTS
-#     CodeGen
-#     Core
-#     Support
-#     MC
-
-#   ADD_TO_COMPONENT
-#     Piet
-# )
-
 set(sources
   PietTargetMachine.cpp
   )
@@ -28,7 +13,7 @@ set(sources
 add_llvm_target(PietCodeGen ${sources}
   LINK_COMPONENTS
   # Analysis
-  # AsmPrinter
+  AsmPrinter
   # CFGuard
   CodeGen
   # CodeGenTypes

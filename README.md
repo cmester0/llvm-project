@@ -1,9 +1,31 @@
 # Piet backend bracnh for LLVM
 ```bash
+mkdir build
+cd build
+```
+
+Setup build:
+```bash
 cmake -G Ninja ../llvm
   -DLLVM_TARGETS_TO_BUILD="X86;Piet"
   -DLLVM_ENABLE_PROJECTS="clang"
   -DCMAKE_BUILD_TYPE=Release
+```
+
+Build:
+```bash
+cmake --build .
+```
+
+Compile to Piet:
+```bash
+./bin/clang++ -O0 -emit-llvm -c hello_world.cpp -o hello_world.bc
+./bin/llc -march=piet hello_world.bc -o hello_world.s
+```
+
+```bash
+cargo rustc -- --emit=llvm-ir
+rustc --emit=llvm-ir
 ```
 
 # The LLVM Compiler Infrastructure

@@ -9,16 +9,7 @@ Target &llvm::getThePietTarget() {
   return ThePietTarget;
 }
 
-
-// extern "C" void LLVMInitializePietTargetInfo();
 extern "C" void LLVMInitializePietTargetInfo() {
   RegisterTarget<Triple::UnknownArch, /* HasJIT */ false> X(
     getThePietTarget(), "piet", "Piet Custom Target", "Piet backend");
-  // Triple::piet
 }
-
-// (Target &T, const char *Name,
-//                                     const char *ShortDesc,
-//                                     const char *BackendName,
-//                                     Target::ArchMatchFnTy ArchMatchFn,
-//                                     bool HasJIT)

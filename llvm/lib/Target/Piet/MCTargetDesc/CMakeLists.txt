@@ -7,7 +7,7 @@ add_llvm_component_library(LLVMPietDesc
   # PietShuffleDecode.cpp
   # PietAsmBackend.cpp
   PietMCTargetDesc.cpp
-  # PietMCAsmInfo.cpp
+  PietMCAsmInfo.cpp
   # PietMCCodeEmitter.cpp
   # PietMachObjectWriter.cpp
   # PietMnemonicTables.cpp

@@ -7,23 +7,29 @@
 #include <string>
 
 namespace llvm {
-class formatted_raw_ostream;
-class MCAsmBackend;
-class MCCodeEmitter;
-class MCContext;
-class MCInstrInfo;
-class MCInstPrinter;
-class MCObjectTargetWriter;
-class MCObjectWriter;
-class MCRegisterInfo;
+/* class formatted_raw_ostream; */
+/* class MCAsmBackend; */
+/* class MCCodeEmitter; */
+/* class MCContext; */
+/* class MCInstrInfo; */
+/* class MCInstPrinter; */
+/* class MCObjectTargetWriter; */
+/* class MCObjectWriter; */
+/* class MCRegisterInfo; */
 class MCSubtargetInfo;
-class MCStreamer;
-class MCTargetOptions;
-class MCRelocationInfo;
-class MCTargetStreamer;
+/* class MCStreamer; */
+/* class MCTargetOptions; */
+/* class MCRelocationInfo; */
+/* class MCTargetStreamer; */
 class StringRef;
 class Target;
 class Triple;
+}
+
+namespace llvm {
+  namespace PIET_MC {
+    MCSubtargetInfo *createPietMCSubtargetInfo(const Triple &TT, StringRef CPU, StringRef FS);
+  }
 }
 
 #endif

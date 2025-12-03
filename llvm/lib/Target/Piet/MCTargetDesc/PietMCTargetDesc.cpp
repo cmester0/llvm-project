@@ -1,4 +1,5 @@
 #include "PietMCTargetDesc.h"
+#include "PietMCAsmInfo.h"
 #include "../TargetInfo/PietTargetInfo.h"
 
 #include "llvm/MC/MCAsmInfo.h"
@@ -11,40 +12,39 @@
 #include "llvm/MC/TargetRegistry.h"
 #include "llvm/TargetParser/Triple.h"
 
-// #include "llvm/DebugInfo/CodeView/CodeView.h"
-// #include "llvm/MC/MCAsmBackend.h"
-// #include "llvm/MC/MCCodeEmitter.h"
-// #include "llvm/MC/MCELFStreamer.h"
-// #include "llvm/MC/MCInstrAnalysis.h"
-// #include "llvm/MC/MCInstrInfo.h"
-// #include "llvm/MC/MCObjectWriter.h"
-// #include "llvm/MC/MCRegisterInfo.h"
-// #include "llvm/MC/MCStreamer.h"
-// #include "llvm/MC/MCSubtargetInfo.h"
-// #include "llvm/MC/TargetRegistry.h"
-// #include "llvm/Support/Compiler.h"
-// #include "llvm/Support/ErrorHandling.h"
-// #include "llvm/TargetParser/Triple.h"
-
-// #define GET_REGINFO_MC_DESC
-// #include "PietGenRegisterInfo.inc"
-
-// extern "C" void LLVMInitializePietTargetMC();
-
 using namespace llvm;
 
-static MCRegisterInfo *createPietMCRegisterInfo(const Triple &Triple) {
-  MCRegisterInfo *X = new MCRegisterInfo();
-  // InitPietMCRegisterInfo(X, ARM::LR, 0, 0, ARM::PC);
-  // ARM_MC::initLLVMToCVRegMapping(X);
+static MCAsmInfo* createPietMCAsmInfo(const MCRegisterInfo &MRI,
+                                      const Triple &TT,
+				      const MCTargetOptions &Options) {
+    PietMCAsmInfo* MAI = new PietMCAsmInfo();
+    return MAI;
+}
 
-  return X;
+static MCRegisterInfo* createPietMCRegisterInfo(const Triple &TT) {
+    MCRegisterInfo* MRI = new MCRegisterInfo();
+    // Normally you would initialize with registers, but a minimal stub is okay
+    return MRI;
+}
+
+
+MCSubtargetInfo* PIET_MC::createPietMCSubtargetInfo(
+  const Triple &TT,
+  StringRef CPU,
+  StringRef FS) {
+  return new MCSubtargetInfo(TT, CPU, CPU, FS, {}, {}, {}, {}, {}, {}, {}, {}, {});
 }
 
 extern "C" void LLVMInitializePietTargetMC() {
+  Target &Piet = getThePietTarget();
+
   // // At minimum:
-  // TargetRegistry::RegisterMCAsmInfo(ThePietTarget, createPietMCAsmInfo);
+  TargetRegistry::RegisterMCAsmInfo(Piet, createPietMCAsmInfo);
 
   // Register the MC register info.
-  TargetRegistry::RegisterMCRegInfo(getThePietTarget(), createPietMCRegisterInfo);
+  TargetRegistry::RegisterMCRegInfo(Piet, createPietMCRegisterInfo);
+
+  // Register the MC subtarget info.
+  TargetRegistry::RegisterMCSubtargetInfo(Piet, PIET_MC::createPietMCSubtargetInfo);
+  
 }
